@@ -43,8 +43,24 @@ Complex complex_mult(Complex c1, Complex c2) {
 
 Complex complex_div(Complex c1, Complex c2) {
 	double denom = magnitude(c2)*magnitude(c2);
+	if(denom == 0){
+		Complex a;
+		a.real = 0;
+		a.imag = 0;
+		printf("Can't divide by zero\n");
+		return a;
+	}
 	Complex c = complex_mult(c1, complex_conj(c2));
 	c.real /= denom;
 	c.imag /= denom;
 	return c;
 }
+void hdlr1(Complex (*fun_hdlr)(Complex, Complex), Complex c1, Complex c2) {
+	print_complex(fun_hdlr(c1, c2));
+}
+
+void hdlr2(double (*fun_hdlr)(Complex), Complex c1) {
+	printf("%lf ", fun_hdlr(c1));
+	printf("\n");
+}
+
